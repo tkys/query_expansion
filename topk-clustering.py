@@ -21,10 +21,8 @@ def cluster_words(words, n_clusters):
 
 # モデルとクエリを設定
 
-st = time.time()
 embedding_path = './entity_vector/entity_vector.model.bin' # 単語埋め込みモデルのパス
 model = load_embeddings(embedding_path)
-print(f"time_clustering_spent:{round(time.time()-st,8)}")
 
 
 query_word = '電池' # クエリ単語
@@ -32,18 +30,16 @@ top_k = 50 # 取得する単語数
 n_clusters = 3 # クラスタの数
 
 
-st = time.time()
 
 # トップkの単語を取得
 top_k_words = get_top_k_words(model, query_word, top_k)
 print(f"top_k_words:{top_k_words}")
-print(f"time_clustering_spent:{round(time.time()-st,8)}")
 
-st = time.time()
 
 # クラスタリング
 clusters = cluster_words(top_k_words, n_clusters)
-print(f"time_clustering_spent:{round(time.time()-st,8)}")
+
+
 
 st = time.time()
 
@@ -52,6 +48,5 @@ for i in range(n_clusters):
     print(f"Cluster {i}: {[word for j, (word, _) in enumerate(top_k_words) if clusters[j] == i]}")
 
 print(f"time_clustering_spent:{round(time.time()-st,8)}")
-
 
 
